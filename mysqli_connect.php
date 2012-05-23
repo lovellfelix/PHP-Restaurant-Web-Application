@@ -6,7 +6,7 @@
 
 // Set the database access information as constants:
 DEFINE ('DB_USER', 'website_admin');
-DEFINE ('DB_PASSWORD', 'pa$$word');
+DEFINE ('DB_PASSWORD', 'password');
 DEFINE ('DB_HOST', 'localhost');
 DEFINE ('DB_NAME', 'website_db');
 
