@@ -1,5 +1,4 @@
-<?php # Script 8.5 - register.php #2
-// The user is redirected here from login.php.
+<?php 
 
 session_start(); // Start the session.
 
@@ -34,7 +33,7 @@ echo '<!-- content -->
 // Check if the form has been submitted:
 if (isset($_POST['submitted'])) {
 
-	require_once ('../../../mysqli_connect.php'); // Connect to the db.
+	require_once ('mysqli_connect.php'); // Connect to the db.
 		
 	$errors = array(); // Initialize an error array.
 	

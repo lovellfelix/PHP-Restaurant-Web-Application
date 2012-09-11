@@ -1,8 +1,6 @@
-<?php # Script 9.4 - #4
+<?php 
 
-// This script retrieves all the records from the users table.
-// This version paginates the query results.
-// The user is redirected here from login.php.
+
 
 session_start(); // Start the session.
 
@@ -29,7 +27,7 @@ echo '<div id="content">
                	<div class="border-right">
                   	<div class="inner">
                      	<div class="wrapper">
-<h3>List of Employees</h3>';
+<h3>Messages</h3>';
 
 require_once ('../mysqli_connect.php');
 
@@ -44,7 +42,7 @@ if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
 } else { // Need to determine.
 
  	// Count the number of records:
-	$q = "SELECT COUNT(employee_id) FROM employees";
+	$q = "SELECT COUNT(contact_id) FROM contactus";
 	$r = @mysqli_query ($dbc, $q);
 	$row = @mysqli_fetch_array ($r, MYSQLI_NUM);
 	$records = $row[0];
@@ -67,7 +65,7 @@ if (isset($_GET['s']) && is_numeric($_GET['s'])) {
 		
 // Make the query:
 //$q = "SELECT last_name, first_name, DATE_FORMAT(registration_date, '%M %d, %Y') AS dr, user_id FROM users ORDER BY registration_date ASC LIMIT $start, $display";		
-$q = "SELECT CONCAT (last_name, ', ', first_name) AS name, email, pass, title, DATE_FORMAT(date_created,'%M %d, %Y') AS dr, employee_id FROM employees ORDER BY date_Created ASC LIMIT $start, $display";		
+$q = "SELECT CONCAT (last_name, ', ', first_name) AS name, email, message, DATE_FORMAT(date_created,'%M %d, %Y') AS dr, contact_id FROM contactus ORDER BY date_Created ASC LIMIT $start, $display";		
 
 $r = @mysqli_query ($dbc, $q);
 
@@ -77,8 +75,8 @@ echo '<table align="center" cellspacing="2" cellpadding="10" width="100%">
 
 	<td align="left"><b>Name</b></td>
 	<td align="left"><b>Email Address</b></td>
-	<td align="left"><b>Position</b></td>
-	<td align="left"><b>Date Registered</b></td>
+	<td align="left"><b>Message</b></td>
+	<td align="left"><b>Date</b></td>
 	</tr>
 
 ';
@@ -94,11 +92,11 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	echo '<tr bgcolor="' . $bg . '">
 	
 		
-		<td align="left"><a href="edit_employee.php?id=' . $row['employee_id'] . '">' . $row['name'] .' </td>
+		<td align="left">' . $row['name'] .' </td>
 		<td align="left">' . $row['email'] . ' </td>
-		<td align="left">' . $row['title'] . '</a></td>
+		<td align="left"><a href="view_message.php?id=' . $row['contact_id'] . '">' . $row['message'] . '</a></td>
 		<td align="left"><small>' . $row['dr'] . '</small></td>
-		<td align="left"><a href="edit_employee.php?id=' . $row['employee_id'] . '">Edit</td>';
+		<td align="left"><a href="delete_message.php?id=' . $row['contact_id'] . '">Delete</a></td>';
 
 	//<td align="right"><a href="view_message.php?id=' . $row['contactus_id'] . '">view </a></td>'
 } // End of WHILE loop.
@@ -118,13 +116,13 @@ if ($pages > 1) {
 	
 	// If it's not the first page, make a Previous button:
 	if ($current_page != 1) {
-		echo '<a href="employees.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
+		echo '<a href="messages.php?s=' . ($start - $display) . '&p=' . $pages . '">Previous</a> ';
 	}
 	
 	// Make all the numbered pages:
 	for ($i = 1; $i <= $pages; $i++) {
 		if ($i != $current_page) {
-			echo '<a href="employees.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
+			echo '<a href="messages.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '">' . $i . '</a> ';
 		} else {
 			echo $i . ' ';
 		}
@@ -132,7 +130,7 @@ if ($pages > 1) {
 	
 	// If it's not the last page, make a Next button:
 	if ($current_page != $pages) {
-		echo '<a href="employees.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
+		echo '<a href="messages.php?s=' . ($start + $display) . '&p=' . $pages . '">Next</a>';
 	}
 	
 	echo '</p>'; // Close the paragraph.

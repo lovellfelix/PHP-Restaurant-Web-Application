@@ -1,8 +1,5 @@
-<?php # Script 9.2 - delete_user.php
+<?php 
 
-// This page is for deleting a user record.
-// This page is accessed through view_users.php.
-// The user is redirected here from login.php.
 
 session_start(); // Start the session.
 
@@ -32,7 +29,7 @@ echo '<div id="content">
 <h3>Delete Messages</h3>';
 
 // Check for a valid user ID, through GET or POST:
-if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { // From view_users.php
+if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { 
 	$id = $_GET['id'];
 } elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) { // Form submission.
 	$id = $_POST['id'];
